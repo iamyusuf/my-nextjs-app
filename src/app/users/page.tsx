@@ -35,7 +35,7 @@ export default function UsersPage() {
       </div>
       <div className="flex flex-wrap justify-center items-stretch">
         {filtered.map((user: any) => (
-          <UserCard key={user.id} user={user} />
+          <UserCard key={user.id} user={user} search={search} />
         ))}
       </div>
     </div>
