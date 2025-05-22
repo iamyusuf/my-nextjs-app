@@ -1,4 +1,30 @@
-import { User  } from "./types";
+import { User } from "./types";
+
+function Address({ address }: { address: User["address"] }) {
+  return (
+    <div className="mb-2">
+      <span className="font-medium text-zinc-700 dark:text-zinc-200">Address:</span>
+      <div className="ml-4 text-zinc-700 dark:text-zinc-300">
+        <div>{address.street}, {address.suite}</div>
+        <div>{address.city}, {address.zipcode}</div>
+        <div className="text-xs text-zinc-500 dark:text-zinc-400">Geo: {address.geo.lat}, {address.geo.lng}</div>
+      </div>
+    </div>
+  );
+}
+
+function CompanyInfo({ company }: { company: User["company"] }) {
+  return (
+    <div>
+      <span className="font-medium text-zinc-700 dark:text-zinc-200">Company:</span>
+      <div className="ml-4">
+        <div className="text-zinc-800 dark:text-zinc-200 font-semibold">{company.name}</div>
+        <div className="italic text-zinc-500 dark:text-zinc-400">{company.catchPhrase}</div>
+        <div className="text-xs text-zinc-500 dark:text-zinc-400">{company.bs}</div>
+      </div>
+    </div>
+  );
+}
 
 export default function UserCard({ user }: { user: User }) {
   return (
@@ -24,22 +50,8 @@ export default function UserCard({ user }: { user: User }) {
       <div className="mb-2">
         <span className="font-medium text-zinc-700 dark:text-zinc-200">Website:</span> <a href={`http://${user.website}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 underline">{user.website}</a>
       </div>
-      <div className="mb-2">
-        <span className="font-medium text-zinc-700 dark:text-zinc-200">Address:</span>
-        <div className="ml-4 text-zinc-700 dark:text-zinc-300">
-          <div>{user.address.street}, {user.address.suite}</div>
-          <div>{user.address.city}, {user.address.zipcode}</div>
-          <div className="text-xs text-zinc-500 dark:text-zinc-400">Geo: {user.address.geo.lat}, {user.address.geo.lng}</div>
-        </div>
-      </div>
-      <div>
-        <span className="font-medium text-zinc-700 dark:text-zinc-200">Company:</span>
-        <div className="ml-4">
-          <div className="text-zinc-800 dark:text-zinc-200 font-semibold">{user.company.name}</div>
-          <div className="italic text-zinc-500 dark:text-zinc-400">{user.company.catchPhrase}</div>
-          <div className="text-xs text-zinc-500 dark:text-zinc-400">{user.company.bs}</div>
-        </div>
-      </div>
+      <Address address={user.address} />
+      <CompanyInfo company={user.company} />
     </div>
   );
 }
