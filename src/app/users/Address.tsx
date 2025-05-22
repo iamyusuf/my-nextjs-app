@@ -1,3 +1,4 @@
+import { User } from "./types";
 
 type AddressProps = {
   address: User["address"];
