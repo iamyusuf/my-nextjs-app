@@ -1,17 +1,15 @@
 import React, { createContext, useContext, useEffect, useRef } from "react";
 import type * as Mixpanel from "mixpanel-browser";
 
-// Define a type for the Mixpanel configuration
 type MixpanelConfig = {
+    isEnabled: boolean;
     token: string;
-    screen_name: string;
-    is_enabled: boolean;
+    screenName: string;
     language: string;
-    channel_name: string;
-    subchannel_name: string;
+    channelName: string;
+    subChannelName: string;
 };
 
-// Context to provide Mixpanel configuration
 const MixpanelContext = createContext<MixpanelConfig | null>(null);
 
 export const MixpanelProvider: React.FC<{
@@ -31,11 +29,11 @@ export function useMixpanel() {
         throw new Error("useMixpanel must be used within a MixpanelProvider");
     }
 
-    const { token, screen_name, is_enabled, language, channel_name, subchannel_name } = context;
+    const { token, screenName, isEnabled, language, channelName, subChannelName } = context;
     const mixpanelRef = useRef<typeof Mixpanel | null>(null);
 
     useEffect(() => {
-        if (is_enabled && token) {
+        if (isEnabled && token) {
             // Dynamically import Mixpanel library
             import("mixpanel-browser").then((mixpanel) => {
                 mixpanel.init(token);
@@ -44,15 +42,15 @@ export function useMixpanel() {
                 console.error("Failed to load Mixpanel:", error);
             });
         }
-    }, [token, screen_name, is_enabled]);
+    }, [token, screenName, isEnabled]);
 
     const send = (eventName: string, data: Record<string, unknown>) => {
-        if (is_enabled && mixpanelRef.current) {
+        if (isEnabled && mixpanelRef.current) {
             mixpanelRef.current.track(eventName, {
-                screen_name,
                 language,
-                channel_name,
-                subchannel_name,
+                screen_name: screenName,
+                channel_name: channelName,
+                sub_channel_name: subChannelName,
                 ...data
             });
         } else {
@@ -62,3 +60,4 @@ export function useMixpanel() {
 
     return { send };
 }
+
