@@ -42,7 +42,7 @@ export function useMixpanel() {
                 console.error("Failed to load Mixpanel:", error);
             });
         }
-    }, [token, screenName, isEnabled]);
+    }, [token, isEnabled]);
 
     const send = (eventName: string, data: Record<string, unknown>) => {
         if (isEnabled && mixpanelRef.current) {
