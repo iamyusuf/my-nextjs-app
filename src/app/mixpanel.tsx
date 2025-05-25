@@ -1,28 +1,25 @@
 import React, { createContext, useContext, useEffect, useRef } from "react";
 import type * as Mixpanel from "mixpanel-browser";
 
+// Define a type for the Mixpanel configuration
+type MixpanelConfig = {
+    token: string;
+    screen_name: string;
+    is_enabled: boolean;
+    language: string;
+    channel_name: string;
+    subchannel_name: string;
+};
 
 // Context to provide Mixpanel configuration
-const MixpanelContext = createContext<{
-    token: string;
-    screen_name: string;
-    is_enabled: boolean;
-    language: string;
-    channel_name: string;
-    subchannel_name: string;
-} | null>(null);
+const MixpanelContext = createContext<MixpanelConfig | null>(null);
 
 export const MixpanelProvider: React.FC<{
-    token: string;
-    screen_name: string;
-    is_enabled: boolean;
-    language: string;
-    channel_name: string;
-    subchannel_name: string;
+    config: MixpanelConfig;
     children: React.ReactNode;
-}> = ({ token, screen_name, is_enabled, language, channel_name, subchannel_name, children }) => {
+}> = ({ config, children }) => {
     return (
-      <MixpanelContext.Provider value={{ token, screen_name, is_enabled, language, channel_name, subchannel_name }}>
+      <MixpanelContext.Provider value={config}>
           {children}
       </MixpanelContext.Provider>
     );
@@ -65,4 +62,3 @@ export function useMixpanel() {
 
     return { send };
 }
-
