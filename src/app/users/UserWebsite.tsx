@@ -1,8 +1,8 @@
 import { highlight } from "@/app/users/UserCard";
 
 type UserWebsiteProps = {
-  website: string;
-  search: string;
+  readonly website: string;
+  readonly search: string;
 };
 
 export default function UserWebsite({ website, search }: UserWebsiteProps) {

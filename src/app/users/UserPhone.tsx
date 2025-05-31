@@ -1,8 +1,8 @@
 import { highlight } from "@/app/users/UserCard";
 
 type UserPhoneProps = {
-  phone: string;
-  search: string;
+  readonly phone: string;
+  readonly search: string;
 };
 
 export default function UserPhone({ phone, search }: UserPhoneProps) {

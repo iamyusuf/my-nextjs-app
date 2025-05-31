@@ -1,8 +1,8 @@
 import { highlight } from "@/app/users/UserCard";
 
 type UserEmailProps = {
-  email: string;
-  search: string;
+  readonly email: string;
+  readonly search: string;
 };
 
 

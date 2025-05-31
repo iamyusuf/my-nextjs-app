@@ -21,8 +21,8 @@ export function highlight(text: string, query: string) {
 }
 
 type UserCardProps = {
-  user: User;
-  search?: string;
+  readonly user: User;
+  readonly search?: string;
 };
 
 export default function UserCard({ user, search = "" }: UserCardProps) {
