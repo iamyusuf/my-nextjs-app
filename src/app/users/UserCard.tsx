@@ -3,8 +3,11 @@ import React from "react";
 import { User } from "@/app/users/types";
 import Address from "./Address";
 import CompanyInfo from "./CompnayInfo";
+import UserEmail from "@/app/users/UserEmail";
+import UserPhone from "@/app/users/UserPhone";
+import UserWebsite from "@/app/users/UserWebsite";
 
-function highlight(text: string, query: string) {
+export function highlight(text: string, query: string) {
   if (!query) return text;
   const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
   const parts = text.split(regex);
@@ -37,15 +40,9 @@ export default function UserCard({ user, search = "" }: UserCardProps) {
           <p className="text-xs text-zinc-500 dark:text-zinc-400">ID: {highlight(user.id.toString(), search)}</p>
         </div>
       </div>
-      <div className="mb-2">
-        <span className="font-medium text-zinc-700 dark:text-zinc-200">Email:</span> <a href={`mailto:${user.email}`} className="text-blue-600 dark:text-blue-400 underline">{highlight(user.email, search)}</a>
-      </div>
-      <div className="mb-2">
-        <span className="font-medium text-zinc-700 dark:text-zinc-200">Phone:</span> <span className="text-zinc-800 dark:text-zinc-300">{highlight(user.phone, search)}</span>
-      </div>
-      <div className="mb-2">
-        <span className="font-medium text-zinc-700 dark:text-zinc-200">Website:</span> <a href={`http://${user.website}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 underline">{highlight(user.website, search)}</a>
-      </div>
+      <UserEmail email={user.email} search={search} />
+      <UserPhone phone={user.phone} search={search} />
+      <UserWebsite website={user.website} search={search} />
       <Address address={user.address} search={search} />
       <CompanyInfo company={user.company} search={search} />
     </div>
